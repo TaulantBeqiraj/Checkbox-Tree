@@ -1,8 +1,20 @@
 import { Items } from "./Items";
-import React from "react";
+import React, {useState} from "react";
 
 export const Item = ({ data, allData }) => {
   const children = allData[data.id];
+
+  const [childVisible, setChildVisiblity] = useState(false);
+
+  const changeNode = (e) => {
+    let isChecked = e.target.checked;
+
+    if (isChecked) {
+      setChildVisiblity(true);
+    } else {
+      setChildVisiblity(false);
+    }
+  };
 
   return (
     <div className="node-container" style={{ padding: "0 20px" }}>
@@ -11,11 +23,12 @@ export const Item = ({ data, allData }) => {
           type="checkbox"
           id="name"
           name="name"
+          onChange={(e) => changeNode(e)}
         />
         <label htmlFor="name">{data.name}</label>
       </div>
 
-      {children && <Items data={children} allData={allData} />}
+      {children && childVisible && <Items data={children} allData={allData} />}
     </div>
   );
 };
