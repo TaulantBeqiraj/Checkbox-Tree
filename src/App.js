@@ -1,14 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { Items } from "./components/Items";
-import data from "./data";
+import React, { useEffect } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import CheckboxList from "./pages/CheckboxList";
+import Summary from "./pages/Summary";
 import "./App.css";
 
 // const url = 'https://frakton.dev/articles.php'
 
 const App = () => {
-  const [rootParents, setRootParents] = useState([]);
-  const [arrayMap, setArrayMap] = useState([]);
-
   //----------------------------------------------------------
   // API-fetching functionality as a proof
   //----------------------------------------------------------
@@ -23,23 +21,17 @@ const App = () => {
   // }, [])
   //-----------------------------------------------------------
 
-  useEffect(() => {
-    // convert data to hash so that we can access children easier by ID
-    const hash = data.reduce((curr, prev) => {
-      return {
-        ...curr,
-        [prev.parent]: [...(curr[prev.parent] ? curr[prev.parent] : []), prev],
-      };
-    }, {});
+  return (
+    <main className="container">
+      <div className="title">
+        <h2>Checkbox Tree</h2>
+        <div className="underline"></div>
+      </div>
+      <CheckboxList />
 
-    // remove root parents since we know they have ID=0
-    const { 0: root, ...other } = hash;
-
-    setRootParents(root);
-    setArrayMap(other);
-  }, []);
-
-  return <Items data={rootParents} allData={arrayMap} />;
-}
+      <Summary />
+    </main>
+  );
+};
 
 export default App;

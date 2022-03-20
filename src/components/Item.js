@@ -1,5 +1,5 @@
 import { Items } from "./Items";
-import React, {useState} from "react";
+import React, { useState } from "react";
 
 export const Item = ({ data, allData }) => {
   const children = allData[data.id];
@@ -20,12 +20,15 @@ export const Item = ({ data, allData }) => {
     <div className="node-container" style={{ padding: "0 20px" }}>
       <div className="node-item">
         <input
+          className="form-check-input"
           type="checkbox"
           id="name"
           name="name"
           onChange={(e) => changeNode(e)}
         />
-        <label htmlFor="name">{data.name}</label>
+        <label className="lbl" htmlFor="name">
+          {data.name}
+        </label>
       </div>
 
       {children && childVisible && <Items data={children} allData={allData} />}
